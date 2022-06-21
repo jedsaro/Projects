@@ -1,14 +1,14 @@
-import {Container, Card} from 'semantic-ui-react'
+import {Container, Card, Header} from 'semantic-ui-react'
 import styles from '../styles/Home.module.css'
+import React, { useState } from 'react';
+import { QrReader } from 'react-qr-reader';
 
 export default function Home({tasks}) {
 
   console.log(tasks)
 
   return (
-    <div>
-      Taco
-    </div>
+    <Header as='h1'>Fernanda 🥳</Header>
   )
 }
 
