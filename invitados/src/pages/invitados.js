@@ -1,14 +1,19 @@
 import {Container, Card} from 'semantic-ui-react'
-import styles from '../styles/Home.module.css'
 
-export default function Home({tasks}) {
+export default function Invitados({tasks}) {
 
   console.log(tasks)
 
   return (
-    <div>
-      Taco
-    </div>
+    <Container>
+      {tasks.map(task => (
+        <Card key={tasks._id}>
+          <Card.Content>
+            <Card.Header>{task.name}</Card.Header>
+          </Card.Content>
+        </Card>)
+        )}
+    </Container>
   )
 }
 
