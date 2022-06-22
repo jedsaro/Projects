@@ -1,16 +1,34 @@
 import {Container, Card, Header} from 'semantic-ui-react'
-import styles from '../styles/Home.module.css'
 import React, { useState } from 'react';
 import { QrReader } from 'react-qr-reader';
 
 export default function Home({tasks}) {
-
-  console.log(tasks)
+  const [data, setData] = useState();
 
   return (
-    <Header as='h1'>Fernanda 🥳</Header>
+    <>
+    <Header as='h1' textAlign='center' dividing='true'>Fernanda 🥳</Header>
+    <Container>
+      <QrReader
+        onResult={(result, error) => {
+          if (!!result) {
+            setData(result?.text);
+          }
+
+          if (!!error) {
+            console.info(error);
+          }
+        }}
+        style={{width: '100%'}}
+      />
+
+      <p>{data}</p>
+      </Container>
+    </>
   )
 }
+
+
 
 export const getStaticProps = async(ctx) => {
   

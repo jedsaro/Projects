@@ -1,16 +1,8 @@
 import {Container, Card} from 'semantic-ui-react'
 
-
 export default function Invitados({tasks}) {
 
-  console.log(tasks)
-
   return (
-
-    
-
-
-
     <Container>
       <h1>Invitados</h1>
       {tasks.map(task => (
