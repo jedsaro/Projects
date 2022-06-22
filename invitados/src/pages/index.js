@@ -1,12 +1,14 @@
 import {Container, Card, Header} from 'semantic-ui-react'
 import React, { useState } from 'react';
 import { QrReader } from 'react-qr-reader';
+import {Navbar} from '../components/navbar'
 
 export default function Home({tasks}) {
   const [data, setData] = useState();
 
   return (
     <>
+    <Navbar></Navbar>
     <Header as='h1' textAlign='center' dividing='true'>Fernanda 🥳</Header>
     <Container>
       <QrReader
