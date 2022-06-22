@@ -5,7 +5,7 @@ const invitados_schema = new Schema({
     type: String,
     required: [true, 'Name is required'],
     unique: true,
-    trim: true,
+    trim: true
   },
 
   status:{
@@ -16,8 +16,8 @@ const invitados_schema = new Schema({
   table:{
     type: String,
     required: [true, 'Table is required'],
-    unique: true,
     trim: true,
+    unique: false
   }
 })
 
