@@ -8,7 +8,7 @@ export default function Home({tasks}) {
 
   return (
     <>
-    <Navbar></Navbar>
+    <Navbar/>
     <Header as='h1' textAlign='center' dividing='true'>Fernanda 🥳</Header>
     <Container>
       <QrReader
