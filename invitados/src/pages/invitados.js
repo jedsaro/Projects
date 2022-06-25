@@ -21,7 +21,7 @@ export default function Invitados({tasks}) {
 }
 
 export const getStaticProps = async(ctx) => {
-  
+
   const res = await fetch('http://localhost:3000/api/tasks')
 
   const tasks = await res.json()

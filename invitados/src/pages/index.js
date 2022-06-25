@@ -1,10 +1,30 @@
-import {Container, Card, Header} from 'semantic-ui-react'
-import React, { useState } from 'react';
-import { QrReader } from 'react-qr-reader';
+import React, { useState, useEffect } from 'react';
+import {Container, Header} from 'semantic-ui-react'
+import {QrReader} from 'react-qr-reader';
 import {Navbar} from '../components/navbar'
+import {ApprovalCard} from '../components/aproval'
 
 export default function Home({tasks}) {
+
   const [data, setData] = useState();
+
+  //const [checkIn, setcheckIn] = useState(false)
+
+
+  const verify = () => {
+
+    const result = tasks.find((name) => tasks.name === data);
+
+    console.log(result.name)
+
+    if(result.name === data)
+    {
+      return(
+        <ApprovalCard name = {result.name}/>
+      )
+    }
+    
+  }
 
   return (
     <>
@@ -13,10 +33,11 @@ export default function Home({tasks}) {
     <Container>
       <QrReader
         onResult={(result, error) => {
+
           if (!!result) {
             setData(result?.text);
+            verify({data});
           }
-
           if (!!error) {
             console.info(error);
           }
@@ -24,12 +45,10 @@ export default function Home({tasks}) {
         style={{width: '100%'}}
       />
 
-      <p>{data}</p>
       </Container>
     </>
   )
 }
-
 
 
 export const getStaticProps = async(ctx) => {
@@ -38,8 +57,6 @@ export const getStaticProps = async(ctx) => {
 
   const tasks = await res.json()
 
-  console.log(tasks)
-  
   return {
     props: {
       tasks,
