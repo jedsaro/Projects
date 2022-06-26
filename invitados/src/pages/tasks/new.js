@@ -1,5 +1,5 @@
 import { Button, Container, Form, Grid } from "semantic-ui-react";
-
+import { router } from "next/router";
 import { useState } from "react";
 
 export default function TaskFormPage() {
@@ -19,6 +19,7 @@ export default function TaskFormPage() {
     if(Object.keys(errors).length) return setErrors(errors);
 
     await createInvitado()
+    await router.push("/invitados")
   }
 
   const handleChange = (e) => setNewTask({
@@ -52,7 +53,7 @@ export default function TaskFormPage() {
   }
 
   return (
-    <Container centered>
+    <Container>
     <Grid 
     centered 
     verticalAlign="middle" 

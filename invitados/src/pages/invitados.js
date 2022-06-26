@@ -1,9 +1,13 @@
-import {Container, Card} from 'semantic-ui-react'
+import {Container, Card, Button} from 'semantic-ui-react'
+import { useRouter } from 'next/router'
 
 export default function Invitados({tasks}) {
 
+  const router = useRouter();
+
   return (
     <Container>
+
       <h1>Invitados</h1>
       {tasks.map(task => (
         <Card key={tasks._id}>
@@ -13,6 +17,9 @@ export default function Invitados({tasks}) {
             <Card.Description>
               <h4>{task.status ? 'Pachangeando ✅' : 'No ah llegado ❌'}</h4>
             </Card.Description>
+          </Card.Content>
+          <Card.Content>
+            <Button onClick={()=> router.push(`/tasks/${task._id}`)}>MEH</Button>
           </Card.Content>
         </Card>)
         )}

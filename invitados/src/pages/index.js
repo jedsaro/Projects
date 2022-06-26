@@ -1,57 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import {Container, Header} from 'semantic-ui-react'
-import {QrReader} from 'react-qr-reader';
+import React, { useState, useRef, useEffect } from 'react';
+import {Card, Container, Header, Input, Image} from 'semantic-ui-react'
 import {Navbar} from '../components/navbar'
-import {ApprovalCard} from '../components/aproval'
 
 export default function Home({tasks}) {
 
-  const [data, setData] = useState();
+  const [invitado, setInvitado] = useState(
+    {
+      name: "",
+      table: "",
+    }
+  );
+
+  const [input, setInput] = useState('')
+
+  const [list, setList] = useState('')
+
+  const inputReference = useRef(null)
+
+  const resetpointer = () => {
+  useEffect(() => {
+    inputReference.current.focus();
+  }, []);
+  }
+
+  const deleteinput = () => {
+    useEffect(() => {
+      inputReference.current.value = '';
+    }, []);
+    }
 
   //const [checkIn, setcheckIn] = useState(false)
 
+  const handleChange = (e) => {
 
-  const verify = () => {
+    const result = tasks.find(task => task.name === e.target.value)
 
-    const result = tasks.find((name) => tasks.name === data);
-
-    console.log(result.name)
-
-    if(result.name === data)
-    {
-      return(
-        <ApprovalCard name = {result.name}/>
-      )
+    if(result != undefined){
+      
+      setInvitado({
+        name: result.name,
+        table: result.table,
+        invited: result.status,
+      })
+      setList(true)
+      console.log("This is a result" + result.name)
     }
-    
+    else{
+      setList(false)
   }
+}
 
   return (
     <>
+
+    {resetpointer()}
+
     <Navbar/>
-    <Header as='h1' textAlign='center' dividing='true'>Fernanda 🥳</Header>
+    <Header as='h1' textAlign='center' dividing='true' >Fernanda 🥳</Header>
     <Container>
-      <QrReader
-        onResult={(result, error) => {
 
-          if (!!result) {
-            setData(result?.text);
-            verify({data});
-          }
-          if (!!error) {
-            console.info(error);
-          }
-        }}
-        style={{width: '100%'}}
-      />
+      <Image hidden src='./Dancing.gif' size='large' centered/>
 
-      </Container>
+      <Card centered>
+      <Input placeholder='Buscar...' ref={inputReference} onChange={handleChange} hidden/>
+
+        <Card.Content>
+          <Card.Header centered><h2>{invitado.name}</h2></Card.Header>
+          <Card.Meta centered><h4>Mesa: {invitado.table}</h4></Card.Meta>
+        </Card.Content>  
+      </Card>
+    </Container>
     </>
   )
 }
 
-
-export const getStaticProps = async(ctx) => {
+export const getServerSideProps = async(ctx) => {
   
   const res = await fetch('http://localhost:3000/api/tasks')
 

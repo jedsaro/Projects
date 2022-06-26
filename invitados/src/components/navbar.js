@@ -10,7 +10,7 @@ export const Navbar = () => {
       <Container>
         <Menu.Menu position="right">
           <Menu.Item>
-            <Button primary size="mini" onClick={() => alert("works")}>
+            <Button primary size="large" color="violet" onClick={() => router.push('/invitados')}>
               Invitados
             </Button>
           </Menu.Item>
