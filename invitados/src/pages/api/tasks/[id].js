@@ -20,7 +20,7 @@ export default async (req,res) => {
     case 'PUT':
       try{
         const task = await Task.findByIdAndUpdate(id, body, {new: true})
-        if (!task) return res.status(404).json({message: 'Task not found'})
+        if (!task) return res.status(404).json({message: 'Invitado not found'})
         return res.status(200).json(task)
       } catch(err){
 
@@ -29,7 +29,7 @@ export default async (req,res) => {
     case 'DELETE':
       try{
         const task = await Task.findByIdAndDelete(id)
-        if(!task) return res.status(404).json({message: 'Task not found'})
+        if(!task) return res.status(404).json({message: 'Invitado not found'})
         return res.status(200).json()
       } catch(err){
         return res.status(500).json({message: err.message})
@@ -46,5 +46,5 @@ export default async (req,res) => {
       return res.status(400).json({msg:'this method is not supported'})
   }
 
-  return res.status(200).json({message: 'Received a GET request'})
+  //return res.status(200).json({message: 'Received a GET request'})
 }

@@ -6,30 +6,39 @@ export default function Home({tasks}) {
 
   const [invitado, setInvitado] = useState(
     {
+      id: "",
       name: "",
       table: "",
+      status: "",
     }
   );
 
-  const [input, setInput] = useState('')
+  //const [input, setInput] = useState('')
 
-  const [list, setList] = useState('')
+  const [list, setList] = useState(false)
 
   const inputReference = useRef(null)
 
-  const resetpointer = () => {
   useEffect(() => {
     inputReference.current.focus();
-  }, []);
-  }
-
-  const deleteinput = () => {
-    useEffect(() => {
-      inputReference.current.value = '';
-    }, []);
-    }
+  });
 
   //const [checkIn, setcheckIn] = useState(false)
+
+  const updateInvitado = async() => {
+    try{
+      await fetch("http://localhost:3000/api/tasks", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(invitado),
+      })
+    } catch(err){
+      console.log("Valio dick", err);
+    }
+  }
+
 
   const handleChange = (e) => {
 
@@ -38,36 +47,37 @@ export default function Home({tasks}) {
     if(result != undefined){
       
       setInvitado({
+        id: result._id,
         name: result.name,
         table: result.table,
-        invited: result.status,
+        status: result.status,
       })
+
       setList(true)
-      console.log("This is a result" + result.name)
+      
+      updateInvitado();
     }
-    else{
-      setList(false)
-  }
 }
 
   return (
     <>
-    {resetpointer()}
-
     <Navbar/>
+
     <Header as='h1' textAlign='center' dividing='true' >Fernanda 🥳</Header>
     <Container>
 
-      <Image hidden src='./Dancing.gif' size='large' centered/>
+      <Image src='./Dancing.gif' size='large' centered/>
 
       <Card centered>
-      <Input placeholder='Buscar...' ref={inputReference} onChange={handleChange} hidden/>
 
+      <Input  placeholder='Buscar...' ref={inputReference} onChange={handleChange} hidden/>
         <Card.Content>
-          <Card.Header centered><h2>{invitado.name}</h2></Card.Header>
-          <Card.Meta centered><h4>Mesa: {invitado.table}</h4></Card.Meta>
-        </Card.Content>  
-      </Card>
+          <Card.Header><h2>{invitado.name}</h2></Card.Header>
+            <Card.Description> <h4>Mesa: {invitado.table}</h4> </Card.Description>
+            {list ? <Card.Meta>Pachangeando ✅</Card.Meta> : <Card.Meta>No ah llegado ❌</Card.Meta>}
+
+          </Card.Content>  
+        </Card>
     </Container>
     </>
   )
