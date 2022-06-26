@@ -52,7 +52,6 @@ export default function Home({tasks}) {
 
   return (
     <>
-
     {resetpointer()}
 
     <Navbar/>

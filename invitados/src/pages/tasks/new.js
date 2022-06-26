@@ -36,7 +36,6 @@ export default function TaskFormPage() {
     return errors;
     }
   
-
   const createInvitado = async(e) => {
     try{
       await fetch("http://localhost:3000/api/tasks", {
