@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {Card, Container, Header, Input, Image} from 'semantic-ui-react'
+import {Card, Container, Header, Input, Image, Transition} from 'semantic-ui-react'
 import {Navbar} from '../components/navbar'
+import { ApprovalCard } from 'components/aproval';
+import { Search } from 'components/search';
 
 export default function Home({tasks}) {
 
@@ -23,6 +25,10 @@ export default function Home({tasks}) {
     inputReference.current.focus();
   });
 
+  const reservation = () => {
+    setList(true)
+  }
+
   //const [checkIn, setcheckIn] = useState(false)
 
   const updateInvitado = async() => {
@@ -39,8 +45,7 @@ export default function Home({tasks}) {
     }
   }
 
-
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
 
     const result = tasks.find(task => task.name === e.target.value)
 
@@ -55,7 +60,7 @@ export default function Home({tasks}) {
 
       setList(true)
       
-      updateInvitado();
+      await updateInvitado();
     }
 }
 
@@ -69,12 +74,19 @@ export default function Home({tasks}) {
       <Image src='./Dancing.gif' size='large' centered/>
 
       <Card centered>
+      <Input  placeholder='Buscar...' ref={inputReference} onChange={handleChange}/>
 
-      <Input  placeholder='Buscar...' ref={inputReference} onChange={handleChange} hidden/>
         <Card.Content>
-          <Card.Header><h2>{invitado.name}</h2></Card.Header>
-            <Card.Description> <h4>Mesa: {invitado.table}</h4> </Card.Description>
-            {list ? <Card.Meta>Pachangeando ✅</Card.Meta> : <Card.Meta>No ah llegado ❌</Card.Meta>}
+          <Card.Header textAlign="center">
+            <h1>{invitado.name}</h1>
+          </Card.Header>
+
+          <Transition visible={list} animation='scale' duration={700}>
+
+            <ApprovalCard name={invitado.name} table={invitado.table} status={list}/>
+
+          </Transition>
+
 
           </Card.Content>  
         </Card>

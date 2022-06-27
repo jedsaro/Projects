@@ -3,8 +3,6 @@ import { useRouter } from 'next/router'
 
 export default function Invitados({tasks}) {
 
-  const router = useRouter();
-
   return (
     <Container>
 
@@ -27,7 +25,7 @@ export default function Invitados({tasks}) {
   )
 }
 
-export const getStaticProps = async(ctx) => {
+export const getServerSideProps = async(ctx) => {
 
   const res = await fetch('http://localhost:3000/api/tasks')
 
