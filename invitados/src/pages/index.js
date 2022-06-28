@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import {Card, Container, Header, Input, Image, Transition} from 'semantic-ui-react'
 import {Navbar} from '../components/navbar'
 import { ApprovalCard } from 'components/aproval';
-import { Search } from 'components/search';
+//import { Search } from 'components/search';
 
 export default function Home({tasks}) {
 
@@ -14,8 +14,8 @@ export default function Home({tasks}) {
       status: "",
     }
   );
-
-  //const [input, setInput] = useState('')
+  
+  const [input, setInput] = useState("")
 
   const [list, setList] = useState(false)
 
@@ -25,13 +25,9 @@ export default function Home({tasks}) {
     inputReference.current.focus();
   });
 
-  const reservation = () => {
-    setList(true)
-  }
-
   //const [checkIn, setcheckIn] = useState(false)
 
-  const updateInvitado = async() => {
+/*   const updateInvitado = async() => {
     try{
       await fetch("http://localhost:3000/api/tasks", {
         method: "PUT",
@@ -43,25 +39,31 @@ export default function Home({tasks}) {
     } catch(err){
       console.log("Valio dick", err);
     }
-  }
+  } */
 
   const handleChange = async (e) => {
+
+    setInput(e.target.value)
 
     const result = tasks.find(task => task.name === e.target.value)
 
     if(result != undefined){
       
       setInvitado({
+
         id: result._id,
         name: result.name,
         table: result.table,
         status: result.status,
+
       })
 
       setList(true)
-      
-      await updateInvitado();
+
+      setInput("")
+      //await updateInvitado();
     }
+
 }
 
   return (
@@ -69,16 +71,26 @@ export default function Home({tasks}) {
     <Navbar/>
 
     <Header as='h1' textAlign='center' dividing='true' >Fernanda 🥳</Header>
+
     <Container>
 
       <Image src='./Dancing.gif' size='large' centered/>
 
       <Card centered>
-      <Input  placeholder='Buscar...' ref={inputReference} onChange={handleChange}/>
+      <Input  
+        placeholder='Buscar...' 
+        ref={inputReference} 
+        onChange={handleChange} 
+        value={input}
+        
+        />
 
         <Card.Content>
+
           <Card.Header textAlign="center">
+
             <h1>{invitado.name}</h1>
+
           </Card.Header>
 
           <Transition visible={list} animation='scale' duration={700}>
@@ -87,10 +99,12 @@ export default function Home({tasks}) {
 
           </Transition>
 
-
           </Card.Content>  
+
         </Card>
+
     </Container>
+
     </>
   )
 }

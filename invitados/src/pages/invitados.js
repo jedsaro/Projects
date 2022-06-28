@@ -7,6 +7,7 @@ export default function Invitados({tasks}) {
     <Container>
 
       <h1>Invitados</h1>
+      
       {tasks.map(task => (
         <Card key={tasks._id}>
           <Card.Content>
