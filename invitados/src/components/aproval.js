@@ -15,7 +15,7 @@ export const ApprovalCard = (props) => {
   return (
     <Card>
       <Card.Content textAlign="center">
-        <Card.Description>Mesa</Card.Description>
+        <Card.Description>Mesa:</Card.Description>
         <Card.Header><h1>{props.table}</h1></Card.Header>
       </Card.Content>
     </Card> 

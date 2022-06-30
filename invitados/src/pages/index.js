@@ -1,25 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react';
-import {Card, Container, Header, Input, Image, Transition} from 'semantic-ui-react'
-import {Navbar} from '../components/navbar'
-import { ApprovalCard } from 'components/aproval';
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Card,
+  Container,
+  Header,
+  Input,
+  Image,
+  Transition,
+} from "semantic-ui-react";
+import { Navbar } from "../components/navbar";
+import { ApprovalCard } from "components/aproval";
 //import { Search } from 'components/search';
 
-export default function Home({tasks}) {
+export default function Home({ tasks }) {
+  const [invitado, setInvitado] = useState({
+    id: "",
+    name: "",
+    table: "",
+    status: "",
+  });
 
-  const [invitado, setInvitado] = useState(
-    {
-      id: "",
-      name: "",
-      table: "",
-      status: "",
-    }
-  );
-  
-  const [input, setInput] = useState("")
+  const [input, setInput] = useState("");
 
-  const [list, setList] = useState(false)
+  const [list, setList] = useState(false);
 
-  const inputReference = useRef(null)
+  const inputReference = useRef(null);
 
   useEffect(() => {
     inputReference.current.focus();
@@ -27,97 +31,80 @@ export default function Home({tasks}) {
 
   //const [checkIn, setcheckIn] = useState(false)
 
-/*   const updateInvitado = async() => {
-    try{
+  const updateInvitado = async () => {
+    try {
       await fetch("http://localhost:3000/api/tasks", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(invitado),
-      })
-    } catch(err){
+      });
+    } catch (err) {
       console.log("Valio dick", err);
     }
-  } */
+  };
 
   const handleChange = async (e) => {
+    setInput(e.target.value);
 
-    setInput(e.target.value)
+    const result = tasks.find((task) => task.name === e.target.value);
 
-    const result = tasks.find(task => task.name === e.target.value)
-
-    if(result != undefined){
-      
+    if (result != undefined) {
       setInvitado({
-
-        id: result._id,
+        //id: result._id,
         name: result.name,
         table: result.table,
-        status: result.status,
+      });
 
-      })
+      setList(true);
 
-      setList(true)
-
-      setInput("")
-      //await updateInvitado();
+      setInput("");
+      await updateInvitado();
     }
-
-}
+  };
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
 
-    <Header as='h1' textAlign='center' dividing='true' >Fernanda 🥳</Header>
+      <Header as="h1" textAlign="center" dividing="true">
+        XVI
+      </Header>
 
-    <Container>
+      <Container>
+        <Image src="./inverted-dance.gif" size="large" centered />
 
-      <Image src='./Dancing.gif' size='large' centered/>
+        <Card centered>
+          <Input ref={inputReference} onChange={handleChange} value={input} />
 
-      <Card centered>
-      <Input  
-        placeholder='Buscar...' 
-        ref={inputReference} 
-        onChange={handleChange} 
-        value={input}
-        
-        />
+          <Card.Content>
+            <Card.Header textAlign="center">
+              <h1>{invitado.name}</h1>
+            </Card.Header>
 
-        <Card.Content>
-
-          <Card.Header textAlign="center">
-
-            <h1>{invitado.name}</h1>
-
-          </Card.Header>
-
-          <Transition visible={list} animation='scale' duration={700}>
-
-            <ApprovalCard name={invitado.name} table={invitado.table} status={list}/>
-
-          </Transition>
-
-          </Card.Content>  
-
+            <Transition visible={list} animation="scale" duration={1000}>
+              <ApprovalCard
+                name={invitado.name}
+                table={invitado.table}
+                status={list}
+              />
+            </Transition>
+          </Card.Content>
         </Card>
-
-    </Container>
-
+      </Container>
     </>
-  )
+  );
 }
 
-export const getServerSideProps = async(ctx) => {
-  
-  const res = await fetch('http://localhost:3000/api/tasks')
+export const getServerSideProps = async (ctx) => {
+  const res = await fetch("http://localhost:3000/api/tasks");
 
-  const tasks = await res.json()
+  const tasks = await res.json();
 
   return {
     props: {
       tasks,
     },
-  }
-}
+  };
+};
