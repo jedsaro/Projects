@@ -56,17 +56,17 @@ export default function Home({ tasks }) {
       <Navbar />
 
       <Container>
-        <Image src="./inverted-dance.gif" size="large" centered />
+        <Image key="{image}"src="./inverted-dance.gif" size="large" centered />
 
         <Card centered>
-          <Input ref={inputReference} onChange={handleChange} value={input} />
+          <Input key="{input}"ref={inputReference} onChange={handleChange} value={input} />
 
           <Card.Content>
-            <Card.Header textAlign="center">
+            <Card.Header key="{header}" textAlign="center">
               <h1>{invitado.name}</h1>
             </Card.Header>
 
-            <Transition visible={list} animation="scale" duration={1000}>
+            <Transition key="{transç}" visible={list} animation="scale" duration={1000}>
               <ApprovalCard
                 name={invitado.name}
                 table={invitado.table}
