@@ -1,6 +1,6 @@
 {
   "name": "invitados",
-  "homepage": "http://mdsphone.com",
+  "homepage": "http://mycrodata.com/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,13 +10,11 @@
     "lint": "next lint",
     "export": "next export"
   },
-  
   "dependencies": {
     "mongoose": "^6.4.0",
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-qr-reader": "^3.0.0-beta-1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.3"
   },

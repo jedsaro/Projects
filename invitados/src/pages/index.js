@@ -31,21 +31,8 @@ export default function Home({ tasks }) {
 
   //const [checkIn, setcheckIn] = useState(false)
 
-  const updateInvitado = async () => {
-    try {
-      await fetch("http://localhost:3000/api/tasks", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(invitado),
-      });
-    } catch (err) {
-      console.log("Valio dick", err);
-    }
-  };
+  const handleChange = (e) => {
 
-  const handleChange = async (e) => {
     setInput(e.target.value);
 
     const result = tasks.find((task) => task.name === e.target.value);
@@ -60,17 +47,13 @@ export default function Home({ tasks }) {
       setList(true);
 
       setInput("");
-      await updateInvitado();
+      //await updateInvitado();
     }
   };
 
   return (
     <>
       <Navbar />
-
-      <Header as="h1" textAlign="center" dividing="true">
-        XVI
-      </Header>
 
       <Container>
         <Image src="./inverted-dance.gif" size="large" centered />

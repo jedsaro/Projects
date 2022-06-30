@@ -12,6 +12,7 @@ export default function TaskFormPage() {
   const [errors, setErrors] = useState({})
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
 
     let errors = validate();
