@@ -39,7 +39,7 @@ export default function TaskFormPage() {
   
   const createInvitado = async(e) => {
     try{
-      await fetch("http://localhost:3000/api/tasks", {
+      await fetch("https://invitados.vercel.app/api/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
