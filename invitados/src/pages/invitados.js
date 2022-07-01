@@ -28,7 +28,7 @@ export default function Invitados({tasks}) {
 
 export const getServerSideProps = async(ctx) => {
 
-  const res = await fetch('https://invitados-qqmqiz19v-jedsaro.vercel.app/api/tasks')
+  const res = await fetch('http://localhost:3000/api/tasks')
 
   const tasks = await res.json()
   
